@@ -1,8 +1,7 @@
 package org.olzhas.project.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
@@ -13,6 +12,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "users")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +42,12 @@ public class User {
     @ColumnDefault("now()")
     @Column(name = "created_at")
     private Instant createdAt;
+
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = Instant.now();
+    }
+
 
 }

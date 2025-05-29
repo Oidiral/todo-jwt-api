@@ -1,4 +1,4 @@
-package org.olzhas.project.Service;
+package org.olzhas.project.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.olzhas.project.ExceptionHandler.AlreadyExistException;
 import org.olzhas.project.ExceptionHandler.AuthException;
 import org.olzhas.project.ExceptionHandler.NotFoundException;
-import org.olzhas.project.Service.Impl.AuthServiceImpl;
+import org.olzhas.project.service.Impl.AuthServiceImpl;
 import org.olzhas.project.auth.CustomUserDetails;
 import org.olzhas.project.auth.JwtService;
 import org.olzhas.project.dto.JwtAuthenticationDto;

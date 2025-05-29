@@ -41,6 +41,7 @@ public class JwtService {
                 .claim("role", user.getRoles().stream()
                         .map(Role::getName)
                         .toList())
+                .claim("id", user.getId())
                 .expiration(date)
                 .signWith(getSignKey())
                 .compact();
@@ -54,6 +55,7 @@ public class JwtService {
                 .claim("role", user.getRoles().stream()
                         .map(Role::getName)
                         .toList())
+                .claim("id", user.getId())
                 .expiration(date)
                 .signWith(getSignKey())
                 .compact();

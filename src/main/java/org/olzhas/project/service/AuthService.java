@@ -1,4 +1,4 @@
-package org.olzhas.project.Service;
+package org.olzhas.project.service;
 
 import org.olzhas.project.dto.JwtAuthenticationDto;
 import org.olzhas.project.dto.SignInRequest;

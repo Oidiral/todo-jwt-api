@@ -2,7 +2,7 @@ package org.olzhas.project.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.olzhas.project.Service.Impl.AuthServiceImpl;
+import org.olzhas.project.service.Impl.AuthServiceImpl;
 import org.olzhas.project.dto.JwtAuthenticationDto;
 import org.olzhas.project.dto.SignInRequest;
 import org.olzhas.project.dto.SignUpRequest;
