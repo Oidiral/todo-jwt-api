@@ -40,7 +40,12 @@ public class SecurityConfig {
         http.httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/auth/sign-in", "/api/v1/auth/refresh-token", "/api/v1/auth/sign-up").permitAll()
+                        .requestMatchers("/api/v1/auth/sign-in"
+                                , "/api/v1/auth/refresh-token"
+                                , "/api/v1/auth/sign-up"
+                                , "/v3/api-docs/**"
+                                , "/swagger-ui/**"
+                                , "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
