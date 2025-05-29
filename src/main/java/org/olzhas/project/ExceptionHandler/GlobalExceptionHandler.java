@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,42 +15,57 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(AuthenticationException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<String> handleException(AuthenticationException e) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Authentication failed: " + e.getMessage());
+    @ExceptionHandler({ BadCredentialsException.class, UsernameNotFoundException.class })
+    public ResponseEntity<ApiError> handleUnauthorized(AuthenticationException ex) {
+        ApiError error = new ApiError(
+                HttpStatus.UNAUTHORIZED,
+                "Authentication failed: " + ex.getMessage(),
+                null
+        );
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<String> handleException(Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiError> handleForbidden(AuthenticationException ex) {
+        ApiError error = new ApiError(
+                HttpStatus.FORBIDDEN,
+                "Access denied: " + ex.getMessage(),
+                null
+        );
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(AlreadyExistException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseEntity<String> handleAlreadyExistException(AlreadyExistException e) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: " + e.getMessage());
-    }
-
-    @ExceptionHandler({
-            BadCredentialsException.class,
-            UsernameNotFoundException.class
-    })
-    public ResponseEntity<String> handleAuthExceptions(AuthenticationException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed: " + ex.getMessage());
+    public ResponseEntity<ApiError> handleConflict(AlreadyExistException ex) {
+        ApiError error = new ApiError(
+                HttpStatus.CONFLICT,
+                "Conflict: " + ex.getMessage(),
+                null
+        );
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
+    public ResponseEntity<ApiError> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> fieldErrors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors()
+                .forEach(err -> fieldErrors.put(err.getField(), err.getDefaultMessage()));
 
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage())
+        ApiError error = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                "Validation failed",
+                fieldErrors.toString()
         );
-
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiError> handleAllExceptions(Exception ex) {
+        ApiError error = new ApiError(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "An unexpected error occurred",
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
