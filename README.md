@@ -20,6 +20,6 @@
 ### ⚙️ Сборка и запуск
 
 ```bash
-git clone https://github.com/olzhas-dev/task-manager-api.git
+git clone https://github.com/Oidiral/todo-jwt-api
 cd task-manager-api
 docker-compose up --build
