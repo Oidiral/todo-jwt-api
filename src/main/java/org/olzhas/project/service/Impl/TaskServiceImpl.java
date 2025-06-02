@@ -2,7 +2,7 @@ package org.olzhas.project.service.Impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.olzhas.project.ExceptionHandler.NotFoundException;
+import org.olzhas.project.exceptionHandler.NotFoundException;
 import org.olzhas.project.dto.TaskFilter;
 import org.olzhas.project.dto.TaskRequest;
 import org.olzhas.project.dto.TaskResponse;

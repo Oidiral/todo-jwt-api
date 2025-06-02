@@ -2,9 +2,9 @@ package org.olzhas.project.service.Impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.olzhas.project.ExceptionHandler.AlreadyExistException;
-import org.olzhas.project.ExceptionHandler.AuthException;
-import org.olzhas.project.ExceptionHandler.NotFoundException;
+import org.olzhas.project.exceptionHandler.AlreadyExistException;
+import org.olzhas.project.exceptionHandler.AuthException;
+import org.olzhas.project.exceptionHandler.NotFoundException;
 import org.olzhas.project.service.AuthService;
 import org.olzhas.project.auth.CustomUserDetails;
 import org.olzhas.project.auth.JwtService;

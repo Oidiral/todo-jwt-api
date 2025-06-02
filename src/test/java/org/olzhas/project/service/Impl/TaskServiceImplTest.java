@@ -7,7 +7,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.olzhas.project.ExceptionHandler.NotFoundException;
+import org.olzhas.project.exceptionHandler.NotFoundException;
 import org.olzhas.project.dto.TaskFilter;
 import org.olzhas.project.dto.TaskRequest;
 import org.olzhas.project.dto.TaskResponse;

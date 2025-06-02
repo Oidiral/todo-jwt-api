@@ -1,4 +1,4 @@
-package org.olzhas.project.ExceptionHandler;
+package org.olzhas.project.exceptionHandler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

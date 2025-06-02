@@ -1,4 +1,4 @@
-package org.olzhas.project.ExceptionHandler;
+package org.olzhas.project.exceptionHandler;
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException(String message) {

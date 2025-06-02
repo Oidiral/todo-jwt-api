@@ -1,4 +1,4 @@
-package org.olzhas.project.ExceptionHandler;
+package org.olzhas.project.exceptionHandler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
